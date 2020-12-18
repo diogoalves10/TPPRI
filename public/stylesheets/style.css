@@ -49,3 +49,8 @@ html, body {
 input.form-control{
     margin-right: 1.5%;
 }
+
+.left-margin-icon{
+    margin-left:4px;
+    height:30px;
+}
