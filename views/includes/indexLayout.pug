@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+        title Minhobook - #{title}
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        block scripts
+            script(src='/jquery.js')
+            script(src='/js/bootstrap.min.js')
+        block head
+    body
+        block content

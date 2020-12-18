@@ -1,0 +1,48 @@
+extends includes/indexLayout
+
+block content
+  div#overlay-video
+    video#index-video(playsinline muted autoplay loop)
+      source(src='videos/book.mp4' type='video/mp4')
+
+  div.container.h-100.justify-content-center.align-items-center
+    div.row(style='height:40%')
+      div.row(style='height:8%')
+      div.row
+        div.col-md-3
+        div.col-md-6
+          img.img-fluid(src='images/flagLogo.png')
+        div.col-md-3
+    div.row
+      div.col-md-2
+      div.col-md-4.box-form(style='background:#AC5052;')
+        div.row(style='height:20%').justify-content-center.align-items-center
+          h3.form-title Novo Utilizador
+        div.row(style='height:80%').justify-content-center.align-items-center
+          form.col-12(method='POST', action='/users/register')
+            div.form-group
+              input.form-control(type='text' name='username' placeholder='Nome de utilizador' required)
+            div.form-group
+              input.form-control(type='email' name='email' placeholder='Email' required)
+            div.form-group
+              input.form-control(type='password' name='password' placeholder='Palavra-passe' pattern='.{4,}' title='Precisa ter no mínimo 4 caracteres' required)
+            div.form-group
+              div.row
+                div.col-md-3
+                div.col-md-6
+                  input.form-control.btn-submit(type='submit' value='Registar-se')
+      div.col-md-4.box-form(style='background:#D07044;')
+        div.row(style='height:20%').justify-content-center.align-items-center
+          h3.form-title Já é Utilizador
+        div.row(style='height:80%').justify-content-center.align-items-center
+          form.col-12
+            div.form-group
+              input.form-control(type='text' name='username' placeholder='Nome de utilizador/Email' required)
+            div.form-group
+              input.form-control(type='password' name='password' placeholder='Palavra-passe' required)
+            div.form-group
+              div.row
+                div.col-md-3
+                div.col-md-6
+                  input.form-control.btn-submit(type='submit' value='Iniciar Sessão')
+      div.col-md-2
