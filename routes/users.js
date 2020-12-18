@@ -18,21 +18,27 @@ router.get('/:id', (req, res) => {
     })
 });
 
-router.post('/register',(req,res) => {
+router.post('/register', (req,res) => {
   let username = req.body.username;
   let email = req.body.email;
   let password = req.body.password;
-  let newUser = new User({username: username, email: email, hash: bcryptjs.hashSync(password)});
-  Users.insert(newUser).then(()=>{
-      // success
-      res.redirect('/');
+  Users.insert(new User({username: username, email: email, hash: bcryptjs.hashSync(password)})).then(()=>{
+      res.status(200)
+      res.end()
   }).catch(err => {
-      let duplicateField = err.errmsg.split("index:")[1].split("dup key")[0].split("_")[0].replace(/\s/g, '')
-      if(duplicateField === 'email')
-          console.log('')
-      else if (duplicateField === 'username')
-          console.log('')
+      res.status(400)
+      res.end()
   })
+});
+
+router.post('/check', (req,res) => {
+    Users.lookUpByInfos(req.body.info).then(dados => {
+        if(!dados)
+            res.status(200)
+        else
+            res.status(406)
+        res.end()
+    })
 });
 
 module.exports = router;

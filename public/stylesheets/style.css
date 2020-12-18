@@ -31,6 +31,8 @@ html, body {
 .form-title{
     text-align: center;
     margin-bottom:12%;
+    margin-left: 3%;
+    margin-right: 3%;
     color:#fff;
 }
 
@@ -42,4 +44,8 @@ html, body {
     border: none;
     border-radius: 1.5rem;
     padding:3%;
+}
+
+input.form-control{
+    margin-right: 1.5%;
 }
