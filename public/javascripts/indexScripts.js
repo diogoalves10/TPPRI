@@ -1,6 +1,13 @@
 $(()=>{
+    var userOk = false;
+    var passOK = false;
+    var emailOk = false;
+
     $('#registerForm').on('submit', e=> {
         e.preventDefault()
+        if(!userOk || !passOK || !emailOk)
+            return;
+        console.log("ok")
         $.ajax({
             url: $('#registerForm').attr("action"),
             type:'POST',
@@ -26,6 +33,7 @@ $(()=>{
             $("#registerUsernameForm").css("display", "inline");
             if($("#registerUsernameForm").val().length < 1 ){
                 $("#registerUsernameForm").after("<img class='userNameCheck left-margin-icon' src='images/notcheck.png'/>")
+                userOk = false;
                 return;
             }
             $("#registerUsernameForm").after("<div class=\"spinner-border text-light userNameCheck\" role=\"status\">\"</div>")
@@ -37,10 +45,12 @@ $(()=>{
                     200: () => {
                         $(".userNameCheck").remove();
                         $("#registerUsernameForm").after("<img class='userNameCheck left-margin-icon' src='images/check.png'/>")
+                        userOk = true;
                     },
                     406: () => {
                         $(".userNameCheck").remove();
                         $("#registerUsernameForm").after("<img class='userNameCheck left-margin-icon' src='images/notcheck.png'/>")
+                        userOk = false;
                     }
                 }
             })
@@ -57,7 +67,7 @@ $(()=>{
             $("#registerEmailForm").css("display", "inline");
             if(!validateEmail($("#registerEmailForm").val())){
                 $("#registerEmailForm").after("<img class='emailCheck left-margin-icon' src='images/notcheck.png'/>")
-                emailok = false;
+                emailOk = false;
                 return;
             }
             $("#registerEmailForm").after("<div class=\"spinner-border text-light emailCheck\" role=\"status\">\"</div>")
@@ -69,10 +79,12 @@ $(()=>{
                     200: () => {
                         $(".emailCheck").remove();
                         $("#registerEmailForm").after("<img class='emailCheck left-margin-icon' src='images/check.png'/>")
+                        emailOk = true;
                     },
                     406: () => {
                         $(".emailCheck").remove();
                         $("#registerEmailForm").after("<img class='emailCheck left-margin-icon' src='images/notcheck.png'/>")
+                        emailOk = false;
                     }
                 }
             })
@@ -87,10 +99,15 @@ $(()=>{
             $("#passwordForm").removeClass("col-12");
             $("#passwordForm").addClass("col-9");
             $("#passwordForm").css("display", "inline");
-            if($("#passwordForm").val().length < 4 )
+            if($("#passwordForm").val().length < 4 ){
                 $("#passwordForm").after("<img class='passwordCheck left-margin-icon' src='images/notcheck.png'/>")
-            else
+                passOK = false;
+            }
+            else{
                 $("#passwordForm").after("<img class='passwordCheck left-margin-icon' src='images/check.png'/>")
+                passOK = true;
+            }
+
         },500);
     })
 

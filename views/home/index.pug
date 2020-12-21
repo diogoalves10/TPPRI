@@ -1,0 +1,6 @@
+extends ../includes/layout
+
+block content
+    p salut
+    form(method='POST', action='/users/logout')
+        input(type='submit' value='Logout')

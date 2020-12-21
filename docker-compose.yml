@@ -1,0 +1,18 @@
+version: "3"
+services:
+  minhobook:
+    container_name: minhobook
+    image: basto/minhobook
+    build: .
+    env_file: .env
+    ports:
+      - "3500:3500"
+    links:
+      - mongodb
+  mongodb:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27018:27017'

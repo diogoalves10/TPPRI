@@ -36,7 +36,7 @@ block content
         div.row(style='height:20%').justify-content-center.align-items-center
           h3.form-title Já é Utilizador
         div.row(style='height:80%').justify-content-center.align-items-center
-          form.col-12
+          form.col-12(method='POST', action='/users/login')
             div.form-group
               input.form-control(type='text' name='username' placeholder='Nome de utilizador/Email' required)
             div.form-group
