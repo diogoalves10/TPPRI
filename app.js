@@ -1,3 +1,5 @@
+require('dotenv').config()
+require('./db');
 const express = require('express');
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
@@ -6,7 +8,6 @@ const path = require('path');
 const favicon = require('serve-favicon');
 
 const auth = require('./auth');
-const db = require('./db');
 
 const app = express();
 

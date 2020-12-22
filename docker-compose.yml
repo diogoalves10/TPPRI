@@ -5,7 +5,7 @@ services:
     image: basto/minhobook
     build: .
     ports:
-      - "8080:3500"
+      - "3500:3500"
     links:
       - mongo
   mongo:
