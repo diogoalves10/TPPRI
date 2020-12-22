@@ -1,6 +1,5 @@
 const {v4: uuidv4} = require('uuid');
 const session = require('express-session');
-const fileStore = require('session-file-store')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcryptjs = require('bcryptjs');
@@ -34,7 +33,6 @@ module.exports.session = session({
     genid: req => {
         return uuidv4()
     },
-    store: new fileStore(),
     secret: 'O meu segredo',
     resave: false,
     saveUninitialized: true
