@@ -20,28 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b69a03bf-ce80-40c9-9326-ae7a335b1abe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/WiredTiger.turtle" beforeDir="false" afterPath="$PROJECT_DIR$/data/WiredTiger.turtle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/WiredTiger.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/WiredTiger.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/WiredTigerHS.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/WiredTigerHS.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/_mdb_catalog.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/_mdb_catalog.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/collection-0-1158741655599744791.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/collection-0-1158741655599744791.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/collection-2-1158741655599744791.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/collection-2-1158741655599744791.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-1-1158741655599744791.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-1-1158741655599744791.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-2-5891603694762783918.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-2-5891603694762783918.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-3-1158741655599744791.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-3-1158741655599744791.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-3-5891603694762783918.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-3-5891603694762783918.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-6-1158741655599744791.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-6-1158741655599744791.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/mongod.lock" beforeDir="false" afterPath="$PROJECT_DIR$/data/mongod.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/collection-0-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/collection-0-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/collection-2-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/collection-2-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/collection-7-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/collection-7-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/index-1-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-1-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/index-10-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-10-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/index-3-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-3-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/index-8-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-8-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/index-9-3754846494882640645.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/index-9-3754846494882640645.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerLog.0000000001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000001" beforeDir="false" afterPath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000002" beforeDir="false" afterPath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000002" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/sizeStorer.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data/sizeStorer.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,11 +74,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="add_unversioned_files" value="true&#10;/home/basto/WebstormProjects/TPPRI/.env" />
+    <property name="add_unversioned_files" value="true&#10;/home/basto/WebstormProjects/TPPRI/.env&#10;/home/basto/UMinho/PRI/TPPRI/.env" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.19.0" />
-    <property name="javascript.nodejs.core.library.typings.version" value="10.17.49" />
+    <property name="javascript.nodejs.core.library.typings.version" value="10.17.50" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -122,6 +123,8 @@
       <workItem from="1608582183159" duration="316000" />
       <workItem from="1608590561805" duration="3699000" />
       <workItem from="1608632476943" duration="3233000" />
+      <workItem from="1609554734618" duration="1184000" />
+      <workItem from="1609607824049" duration="2186000" />
     </task>
     <servers />
   </component>
