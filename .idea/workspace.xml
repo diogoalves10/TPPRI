@@ -20,32 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b69a03bf-ce80-40c9-9326-ae7a335b1abe" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sessions/9f3000a5-ce63-49e8-a123-18d17af8e157.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/WiredTiger" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/WiredTiger.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/WiredTiger.turtle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/WiredTiger.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/WiredTigerHS.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/_mdb_catalog.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/collection-0-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/collection-2-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/collection-4-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/collection-7-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/diagnostic.data/metrics.2020-12-22T11-17-31Z-00000" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-1-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-10-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-3-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-5-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-6-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-8-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/index-9-3754846494882640645.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/journal/WiredTigerPreplog.0000000002" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/mongod.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sizeStorer.wt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/storage.bson" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/includes/indexLayout.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/indexLayout.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/includes/layout.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/layout.pug" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,6 +115,7 @@
       <workItem from="1608632476943" duration="3233000" />
       <workItem from="1609554734618" duration="1184000" />
       <workItem from="1609607824049" duration="3496000" />
+      <workItem from="1609794886046" duration="7547000" />
     </task>
     <servers />
   </component>
