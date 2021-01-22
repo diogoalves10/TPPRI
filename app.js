@@ -8,7 +8,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 
 const auth = require('./auth');
-
+//ola teste
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
