@@ -20,13 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b69a03bf-ce80-40c9-9326-ae7a335b1abe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sessions/9f3000a5-ce63-49e8-a123-18d17af8e157.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/includes/indexLayout.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/indexLayout.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/includes/layout.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/layout.pug" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +61,7 @@
     <property name="add_unversioned_files" value="true&#10;/home/basto/WebstormProjects/TPPRI/.env&#10;/home/basto/UMinho/PRI/TPPRI/.env" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.19.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="10.17.50" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/routes" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -84,6 +78,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/routes" />
       <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\Celso\WebstormProjects\PRI-Trabalho\views" />
     </key>
@@ -115,7 +110,9 @@
       <workItem from="1608632476943" duration="3233000" />
       <workItem from="1609554734618" duration="1184000" />
       <workItem from="1609607824049" duration="3496000" />
-      <workItem from="1609794886046" duration="7547000" />
+      <workItem from="1609794886046" duration="7890000" />
+      <workItem from="1610396803658" duration="4000" />
+      <workItem from="1611328708641" duration="1586000" />
     </task>
     <servers />
   </component>
