@@ -3,24 +3,23 @@ $(()=>{
     var passOK = false;
     var emailOk = false;
 
+    var connected = false;
+
     $('#registerForm').on('submit', e=> {
         e.preventDefault()
         if(!userOk || !passOK || !emailOk)
             return;
-        console.log("ok")
         $.ajax({
             url: $('#registerForm').attr("action"),
             type:'POST',
             data: $('#registerForm').serialize(),
-            statusCode: {
-                200: function (response) {
-                    // POST para login
-                },
-                400: alert("Serveur error")
-            }
-        }).done(response => {
-            console.log(response)
+        }).done(function(data, textStatus, jqXHR){
+            if( Number(jqXHR.status) === 200 )
+                location.href = "/home"
         })
+            .fail(function(err){
+                console.log(err)
+            })
     })
 
     var timeoutUser;

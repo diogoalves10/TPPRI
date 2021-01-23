@@ -19,13 +19,11 @@ router.post('/register', (req,res) => {
   let username = req.body.username;
   let email = req.body.email;
   let password = req.body.password;
-  Users.insert({username: username, email: email, hash: bcryptjs.hashSync(password)}).then(()=>{
-      res.status(200)
-      res.end()
-  }).catch(err => {
-      res.status(400)
-      res.end()
-  })
+  let user = Users.insert({username: username, email: email, hash: bcryptjs.hashSync(password)})
+    req.login(user, function(err) {
+        return res.redirect('/home');
+    });
+
 });
 
 router.post('/check', (req,res) => {
