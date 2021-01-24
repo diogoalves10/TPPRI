@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
 const favicon = require('serve-favicon');
+const flash = require('connect-flash');
 
 const auth = require('./auth');
 
@@ -26,12 +27,14 @@ app.use(auth.session)
 app.use(cookieParser('O meu segredo'));
 app.use(auth.passport.initialize());
 app.use(auth.passport.session());
+app.use(flash());
 
 app.use(logger('dev'));
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
+app.use('/account', require('./routes/account'));
 app.use('/home', require('./routes/home'));
 
 app.use(function(req, res, next) {

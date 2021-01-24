@@ -1,0 +1,9 @@
+extends ../includes/layout
+
+block content
+    div.container(style="width:800px; margin-top:200px; auto;")
+        form(action='/users/edit' method='POST')
+            label(for='username') Nome
+            input(type='text' id='username' name='username' value=`${user.username}`)
+            div.button
+                button(type='submit') Modificar Nome
