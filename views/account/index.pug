@@ -1,9 +1,60 @@
 extends ../includes/layout
-
 block content
+    link(rel='stylesheet', href='/stylesheets/styleAccount.css')
     div.container(style="width:800px; margin-top:200px; auto;")
-        form(action='/users/edit' method='POST')
-            label(for='username') Nome
-            input(type='text' id='username' name='username' value=`${user.username}`)
-            div.button
-                button(type='submit') Modificar Nome
+            div.form-group
+                div.row
+                    div.col-md-6
+                        div.container
+                            form#ChangeNameForm(action='/users/edit' method='POST', autocomplete='off')
+                                label(for='username') Nome de Utilizador
+                                div.row
+                                    div.col-md-8
+                                        input#changeNameInput.form-control(type='text'  name='username' value=`${user.username}` required)
+                                    div.col-md-4
+                                        input.form-control(type='submit' value='Mudar')
+                                div.row
+                                    div.col-md-12
+                                        p.userNameCheck &emsp;
+                        div.container(style="margin-top:5px; auto;")
+                            form#ChangeEmailForm(action='/users/edit' method='POST', autocomplete='off')
+                                label(for='email') Email
+                                div.row
+                                    div.col-md-8
+                                        input#changeEmaiInput.form-control(type='text'  name='email' value=`${user.email}` required)
+                                    div.col-md-4
+                                        input.form-control(type='submit' value='Mudar')
+                                div.row
+                                    div.col-md-12
+                                        p.userEmailCheck &emsp;
+                        div.container(style="margin-top:5px; auto;")
+                            form#ChangePasswordForm(action='/users/editPass' method='POST', autocomplete='off')
+                                label(for='email') Mudar Palavra-Chave
+                                div.row
+                                    div.col-md-8
+                                        input#changePasswordInput.form-control(type='password' placeholder='Nova palavra-passe...'  name='password' required)
+                                    div.col-md-4
+                                        input.form-control(type='submit' value='Mudar')
+                                div.row
+                                    div.col-md-12
+                                        p.userPasswordCheck &emsp;
+                    div.col-md-6
+                        div.containerIMG.centerIMG
+                            div.image-cropper
+                                button.btnIMG Mudar
+                                img(src='images/aa.png')
+                div.row
+                    div.col-md-12
+                        form#ChangeDescricao(action='/users/editDescription' method='POST', autocomplete='off')
+                            label(for='descricao') Descricao pessoal
+                            div.row
+                                div.col-md-12
+                                    textarea#changeDescricaoInput.form-control(placeholder='Descreva-se...'  rows="5" name='descricao') #{user.description}
+                            div.row
+                                div.col-md-5
+                                div.col-md-2
+                                    input.form-control(type='submit' value='Memorisar' style="margin-top:10px; auto;")
+                            div.row
+                                div.col-md-5
+                                div.col-md-2
+                                    p.descripcaoCheck(style="color:green;") &emsp;

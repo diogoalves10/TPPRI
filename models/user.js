@@ -5,6 +5,13 @@ const UserSchema = new mongoose.Schema({
     email: {type: String , required:true, index: true, unique:true},
     hash: {type: String, required:true},
     level: {type: Number, required:true},
+    description: {type: String},
+    image: {
+        date: {type: Date},
+        name: {type: String},
+        mimetype: {type: String},
+        size: {type: Number}
+    },
     reg_time: {type: Date, default: Date.now}
 }, {
     versionKey: false

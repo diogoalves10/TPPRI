@@ -8,5 +8,5 @@ module.exports.insert = u => {
 module.exports.list = () => User.find()
 module.exports.lookUp = id => User.findById(id)
 module.exports.lookUpByInfos = info => User.findOne({$or:[{username: info},{email: info}]})
-module.exports.edit = (id, p) => User.findByIdAndUpdate(id, p, {new: true})
+module.exports.edit = p => User.findByIdAndUpdate(p._id, p, {new: true}).exec()
 module.exports.delete = id => User.deleteOne({_id: id})
