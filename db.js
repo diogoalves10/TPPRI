@@ -3,7 +3,7 @@ const {
     MONGO_USERNAME,
     MONGO_PASSWORD
 } = process.env;
-const uri = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster0.w1fgs.mongodb.net/uminhobook?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://admin:${MONGO_PASSWORD}@cluster0.w1fgs.mongodb.net/uminhobook?retryWrites=true&w=majority`;
 mongoose.connect(uri,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false , useCreateIndex: true});
 const db = mongoose.connection;
 db.once('open', () => console.log("Conexão ao MongoDB realizada com sucesso..."));
