@@ -1,0 +1,21 @@
+extends ../includes/layout
+block content
+    script(src='/javascripts/pedidoScripts.js')
+    div.container(style="width:800px; margin-top:200px; auto;")
+        div.form-group
+            p.h5.text-center Vocé nao pode dar upload porque nao é Produtor.
+            p.h5.text-center Mas pode pedir a um administrador para ser-lo.
+            div.row
+                div.col-md-12
+                    form#setask(action='/assets/askAccess' method='POST', autocomplete='off')
+                        div.row
+                            div.col-md-12
+                                textarea.form-control(placeholder='Porqué que se quer tornar produtor ?'  rows="5" name='description') #{pedido}
+                        div.row
+                            div.col-md-5
+                            div.col-md-2
+                                input.form-control(type='submit' value='Pedir' style="margin-top:10px; auto;")
+                        div.row
+                            div.col-md-5
+                            div.col-md-2
+                                p.descripcaoCheck(style="color:green;") &emsp;

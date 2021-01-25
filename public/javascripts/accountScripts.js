@@ -1,6 +1,10 @@
 $(function () {
     // USERNAME
 
+    $(":file").change(function(e){
+        $("[name=formImage]").trigger('submit');
+    });
+
     var timeoutUser, userOk;
     var myname = $("#changeNameInput").val();
 
@@ -51,6 +55,7 @@ $(function () {
             {
                 $(".userNameCheck").text('Nome de utilizador modificado !');
                 $(".userNameCheck").css('color','green');
+                $(".perfilLink").attr("href", '/users/info/'+$("#changeNameInput").val())
                 myname = $("#changeNameInput").val();
                 userOk = false;
             }

@@ -8,9 +8,10 @@ const UserSchema = new mongoose.Schema({
     description: {type: String},
     image: {
         date: {type: Date},
-        name: {type: String},
+        originalName: {type: String},
         mimetype: {type: String},
-        size: {type: Number}
+        size: {type: Number},
+        url: {type: String, default: '/images/default.jpg'}
     },
     reg_time: {type: Date, default: Date.now}
 }, {

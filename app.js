@@ -35,6 +35,8 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/account', require('./routes/account'));
+app.use('/admin', require('./routes/admin'));
+app.use('/assets', require('./routes/assets'));
 app.use('/home', require('./routes/home'));
 
 app.use(function(req, res, next) {

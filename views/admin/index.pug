@@ -1,0 +1,33 @@
+extends ../includes/layout
+block content
+    link(rel='stylesheet', href='/stylesheets/styleAccount.css')
+    div.container(style="width:700px; margin-top:200px; auto;")
+        div.container(style="width:200px;")
+            table.table.table-striped.table-hover
+                caption Pedidos
+                each n in pedidos
+                    tr.text-center.row
+                        td.col-md-12
+                            a(href="/admin/pedido/" + n.id) #{n.reg_time.getHours()}:#{n.reg_time.getMinutes()}  #{n.reg_time.getUTCDate()}/#{n.reg_time.getUTCMonth() + 1}/#{n.reg_time.getUTCFullYear()}
+
+        table.table.table-striped.table-hover
+            caption Utilizadores
+            each n in users
+                tr.text-center.row
+                    td.col-md-2.nopadding
+                        img.image-cropper-admin(src=n.image.url)
+                    td.col-md-2
+                        a(href="/users/info/" + n.username) #{n.username}
+                    td.col-md-2
+                        if(n.level === 1)
+                            div Consumidor
+                        else if(n.level === 2)
+                            div Produtor
+                        else if(n.level === 3)
+                            div Administrador
+                    td.col-md-2
+                        // a(href="/admin/delete/user/" + n.username style="color:red;") Remover
+                    td.col-md-2
+                        a(href="/admin/user/" + n.username style="color:brown;") Por admin
+                    td.col-md-2
+                        a(href="/admin/delete/user/" + n.username style="color:red;") Remover

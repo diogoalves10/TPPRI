@@ -10,13 +10,16 @@ header.header
                         a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/home')
                             | Home
                             span.sr-only (current)
-                    li.nav-item
-                        a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/account') Perfil
                     if(user.level >=2)
                         li.nav-item
-                            a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/account') Content
+                            a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/assets/') Adicionar
+                    else
+                        li.nav-item
+                            a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/assets/askAccess/') Adicionar
                     if(user.level >= 3)
                         li.nav-item
-                            a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/account') Administraçao
+                            a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/admin') Administraçao
+                    li.nav-item
+                        a.perfilLink.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/users/info/' + user.username) Perfil
                     li.nav-item
                         a.nav-link.text-uppercase.font-weight-bold.text-white.elem-navbar(href='/users/logout') Logout

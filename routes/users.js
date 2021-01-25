@@ -7,6 +7,7 @@ const auth = require('../auth');
 const multer = require("multer")
 const upload = multer({dest: 'uploads/'})
 const fs = require('fs');
+const files = require('../files')
 
 router.post('/login', passport.authenticate('local', {session:true, successRedirect: '/home', failureRedirect: '/' }));
 router.get('/logout', (req, res) => {
@@ -21,6 +22,19 @@ router.get('/logout', (req, res) => {
             console.log('Destroy session error: ', err)
     });
 
+});
+
+router.get('/info/:username', auth.isLogged, (req, res) => {
+    Users.lookUpByInfos(req.params.username).then(user => {
+        if(user){
+            let myAccount = false
+            if(req.user.id == user.id)
+                myAccount = true
+            res.render('account/user', {user:req.user, userProfile: user, myAccount: myAccount });
+        }
+        else
+            res.redirect('/home')
+    })
 });
 
 router.post('/register', (req,res) => {
@@ -90,27 +104,18 @@ router.post('/editDescription', auth.isLogged,  (req,res) => {
     res.end();
 })
 
-router.post('/uploadPicture', auth.isLogged, upload.single('myFile'),  (req,res) => {
+router.post('/uploadPicture',upload.single('myFileInput'), auth.isLogged,  (req,res) => {
     let file = req.file;
-    let quarantinePath = __dirname + '/' + file.path
-    let newPath = __dirname + '/public/fileStore/' + file.originalname
-    fs.rename(quarantinePath, newPath, function(err){
-        if(err){
-            //erro
-        }
-        else{
-            let date = new Date().toISOString().substr(0,16)
-            console.log(JSON.stringify(file))
-            /*
-            let files = jsonfile.readFileSync('./dbFiles.json')
-            files.push({
-                date: date,
-                name: file.originalname,
-                mimetype: file.mimetype,
-                size: file.size
-            })
-            jsonfile.writeFileSync('./dbFiles.json', files)*/
-        }
+    let user = req.user;
+    files.uploadFile(__dirname + '/../' + file.path, 'users', req.user._id).then(p => {
+        user.image.date = new Date().toISOString().substr(0,16)
+        user.image.originalName = file.originalname
+        user.image.mimetype = file.mimetype;
+        user.image.size = file.size
+
+        user.image.url = p.url.replace('upload/', '$&ar_1,c_crop/')
+        Users.edit(user);
+        return res.redirect('/account');
     })
 })
 

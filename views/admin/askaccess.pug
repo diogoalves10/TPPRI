@@ -1,0 +1,25 @@
+extends ../includes/layout
+block content
+    link(rel='stylesheet', href='/stylesheets/stylePedido.css')
+    div.container(style="width:800px; margin-top:200px; auto;")
+        div.row
+            div.col-md-12
+                p.text-center
+                    img(src=`${userPedidor.image.url}`)
+        div.row
+            div.col-md-12
+                p.text-center.h2
+                    a(href="/users/info/" + userPedidor.username) #{userPedidor.username}
+        div.row
+            div.col-md-12
+                p.text-center #{pedido.description}
+        div.row.text-center
+            div.col-md-3
+            div.col-md-3
+                form(action="/admin/aceitar/pedido/" + pedido.id)
+                    input.form-control(type='submit' value='Aceitar' style="margin-top:10px; auto;")
+            div.col-md-3
+                form(action="/admin/delete/pedido/" + pedido.id)
+                    input.form-control(type='submit' value='Recusar' style="margin-top:10px; auto;")
+            div.col-md-3
+

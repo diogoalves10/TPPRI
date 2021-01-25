@@ -1,5 +1,6 @@
 extends ../includes/layout
 block content
+    script(src='javascripts/accountScripts.js')
     link(rel='stylesheet', href='/stylesheets/styleAccount.css')
     div.container(style="width:800px; margin-top:200px; auto;")
             div.form-group
@@ -41,8 +42,10 @@ block content
                     div.col-md-6
                         div.containerIMG.centerIMG
                             div.image-cropper
-                                button.btnIMG Mudar
-                                img(src='images/aa.png')
+                                form(action='/users/uploadPicture' enctype='multipart/form-data' method='POST' name='formImage')
+                                    input.btnIMG(type='file' name='myFileInput' id='file' style="display:none")
+                                    button.btnIMG(onclick="document.getElementById('file').click()" type="button") Mudar
+                                img(src=`${user.image.url}`)
                 div.row
                     div.col-md-12
                         form#ChangeDescricao(action='/users/editDescription' method='POST', autocomplete='off')

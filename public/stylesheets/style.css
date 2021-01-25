@@ -79,3 +79,18 @@ input.form-control{
     font-size: 20px;
     font-weight: bold;
 }
+
+.image-cropper-admin{
+    width:42%;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+caption {
+    caption-side: top;
+    text-align: center;
+    font-size: 160%;
+}
