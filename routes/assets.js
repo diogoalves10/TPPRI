@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
+const files = require('../files');
 const Pedidos = require('../controllers/pedidos');
+const multer = require("multer")
+const upload = multer({dest: 'uploads/'})
 
-router.get('/', auth.isCreator,(req, res) => {
+router.get('/', auth.isLogged,(req, res) => {
 
 })
 
@@ -29,19 +32,29 @@ router.post('/askAccess', auth.isLogged,(req, res) => {
 
 })
 
-router.post('/add', (req, res) => {
+router.get('/add', auth.isCreator, (req, res) => {
+    res.render('assets/add', {user:req.user });
+})
+
+router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => {
+    let file = req.file;
+    let user = req.user;
+    files.gerarZip(__dirname + '/../' + file.path).then(p => {
+
+    }).catch(p => {
+
+    })
+})
+
+router.post('/remove', auth.isCreator, (req, res) => {
 
 })
 
-router.post('/remove', (req, res) => {
+router.post('/comment', auth.isLogged, (req, res) => {
 
 })
 
-router.post('/comment', (req, res) => {
-
-})
-
-router.post('/rank', (req, res) => {
+router.post('/rank', auth.isLogged, (req, res) => {
 
 })
 

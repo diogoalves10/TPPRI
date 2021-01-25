@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema({
         size: {type: Number},
         url: {type: String, default: '/images/default.jpg'}
     },
+    assets: {type:  [mongoose.ObjectId]},
     reg_time: {type: Date, default: Date.now}
 }, {
     versionKey: false
