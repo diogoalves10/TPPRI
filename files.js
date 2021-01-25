@@ -67,7 +67,8 @@ function gerarZip(path){
                     filesuu.forEach(function (file) {
                         if(file !== 'bagit.txt' && file !=='data' && file !=='manifest-sha256.txt')
                             aaa.push(file)
-                        failureCallback({files,filesNotOk, filesStructure :aaa})
+                        if(aaa.length>0)
+                            failureCallback({files,filesNotOk, filesStructure :aaa})
                     })
 
                     // FILES OK
@@ -82,8 +83,10 @@ function gerarZip(path){
 
 
                         fs.readFile(pathDir+'/manifest-sha256.txt', 'utf8' , (err, data) => {
-                            if (err|| !data)
+                            if (err|| !data){
                                 failureCallback()
+                            }
+
                             var char = '\n';
                             var i = j = 0;
                             (async () => {
@@ -105,10 +108,7 @@ function gerarZip(path){
                                         console.error(`Error while deleting ${pathDir}.`);
                                     }
                                 })();
-
-                                // fail, delete file
                                 if(filesNotOk.length !== 0){
-                                    console.log(filesNotOk)
                                     failureCallback({files, filesNotOk, filesInsideFolder})
                                 }
                                 else

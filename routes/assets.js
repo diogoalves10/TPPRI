@@ -49,18 +49,19 @@ router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => 
             res.status(400);
             res.render('assets/erroUpload', {user: user, ficheirosAmais: ficheirosAmais})
         } else {
-
+            console.log(logs)
+            // transferir ficheiro no cloud
+            // meter meta na bdd
         }
-        // transferir ficheiro no cloud
-        // meter meta na bdd
     }).catch(p => {
+        console.log("coucou")
         files.deleteFile(__dirname + '/../' + req.file.path)
-        console.log(p)
-        if(p.filesStructure.length > 0){
+        if(p.filesStructure && p.filesStructure.length > 0){
             res.status(400);
             res.render('assets/erroUpload', {user: user, ficheirosAmais: [], filesStructure: p.filesStructure})
         } else{
-            // logs.filesNotOk nao respeitam o sha256
+            res.status(400);
+            res.render('assets/erroUpload', {user: user, filesSHA: p.filesNotOk})
         }
     })
 })

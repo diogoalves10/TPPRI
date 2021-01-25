@@ -18,6 +18,12 @@ block content
                         each n in filesStructure
                             p.text-center(style="color:red;")=n
                     p.text-center (So deve ter manifesto, ficheiro de versao e data)
+        else if(filesSHA && filesSHA.length > 0)
+            div.row(style="margin-top:30px;")
+                div.col-md-12
+                    p.text-center Os seguintes ficheiros nao correspondem as suas assinaturas SHA do manifesto :
+                        each n in filesSHA
+                            p.text-center(style="color:red;")=n
         else
             div.row(style="margin-top:30px;")
                 div.col-md-12
