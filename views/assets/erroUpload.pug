@@ -24,6 +24,12 @@ block content
                     p.text-center Os seguintes ficheiros nao correspondem as suas assinaturas SHA do manifesto :
                         each n in filesSHA
                             p.text-center(style="color:red;")=n
+        else if(filesInManifestButNot && filesInManifestButNot.length > 0)
+            div.row(style="margin-top:30px;")
+                div.col-md-12
+                    p.text-center Os seguintes ficheiros estao no manifesto mas nao estao no ZIP :
+                        each n in filesInManifestButNot
+                            p.text-center(style="color:red;")=n
         else
             div.row(style="margin-top:30px;")
                 div.col-md-12

@@ -93,7 +93,7 @@ function gerarZip(path){
                                 while ((j = data.indexOf(char, i)) !== -1) {
                                     let line = data.substring(i, j)
                                     i = j + 1;
-                                    await lineSha(line,files, filesNotOk,filesInManifestButNot, pathDir+'data/')
+                                    await lineSha(line,files, filesNotOk, filesInManifestButNot, pathDir+'data/')
                                 }
                                 files = [...new Set(files)];
                                 filesNotOk = [...new Set(filesNotOk)];
@@ -108,12 +108,13 @@ function gerarZip(path){
                                 }
                             })();
                             if(filesNotOk.length !== 0){
-                                failureCallback({files, filesNotOk, filesInsideFolder})
-                            }
+                                failureCallback({files, filesNotOk, filesInsideFolder, filesInManifestButNot})
+                            } else if(filesInManifestButNot.length !=0)
+                                failureCallback({files, filesNotOk, filesInsideFolder, filesInManifestButNot})
                             else
-                                successCallback({files, filesNotOk, filesInsideFolder})
+                                successCallback({files, filesNotOk, filesInsideFolder, filesInManifestButNot})
                         }).catch(e => {
-                            failureCallback({files, filesNotOk, filesInsideFolder})
+                            failureCallback({files, filesNotOk, filesInsideFolder, filesInManifestButNot})
                         })
                     })
                 });
@@ -146,11 +147,8 @@ async function lineSha(line, files, filesNotOk,filesInManifestButNot, pathDirect
                         files.push(split[1])
                     resolve()
                 })
-
-
             } else {
-                filesInManifestButNot.push(filePath)
-                console.log(filePath)
+                filesInManifestButNot.push(filePath.split("/data/").pop())
                 resolve()
             }
         });

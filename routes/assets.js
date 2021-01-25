@@ -59,6 +59,9 @@ router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => 
         if(p.filesStructure && p.filesStructure.length > 0){
             res.status(400);
             res.render('assets/erroUpload', {user: user, ficheirosAmais: [], filesStructure: p.filesStructure})
+        } else if (p.filesInManifestButNot && p.filesInManifestButNot.length > 0) {
+            res.status(400);
+            res.render('assets/erroUpload', {user: user, ficheirosAmais: [],filesInManifestButNot:p.filesInManifestButNot, filesStructure: p.filesStructure})
         } else{
             res.status(400);
             res.render('assets/erroUpload', {user: user, filesSHA: p.filesNotOk})
