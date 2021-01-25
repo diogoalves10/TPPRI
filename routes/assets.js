@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../auth');
 const files = require('../files');
 const Pedidos = require('../controllers/pedidos');
+const Types = require('../controllers/assetsTypes');
 const multer = require("multer")
 const upload = multer({dest: 'uploads/'})
 
@@ -33,16 +34,34 @@ router.post('/askAccess', auth.isLogged,(req, res) => {
 })
 
 router.get('/add', auth.isCreator, (req, res) => {
-    res.render('assets/add', {user:req.user });
+    let types = Types.list()
+    res.render('assets/add', {user:req.user, types: types });
 })
 
 router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => {
-    let file = req.file;
+
     let user = req.user;
-    files.gerarZip(__dirname + '/../' + file.path).then(p => {
+    files.gerarZip(__dirname + '/../' + req.file.path).then(logs => {
+        var ficheirosAmais = logs.filesInsideFolder.filter( function( el ) {
+            return logs.files.indexOf( el ) < 0;
+        } );
+        if(ficheirosAmais.length > 0){
+            res.status(400);
+            res.render('assets/erroUpload', {user: user, ficheirosAmais: ficheirosAmais})
+        } else {
 
+        }
+        // transferir ficheiro no cloud
+        // meter meta na bdd
     }).catch(p => {
-
+        files.deleteFile(__dirname + '/../' + req.file.path)
+        console.log(p)
+        if(p.filesStructure.length > 0){
+            res.status(400);
+            res.render('assets/erroUpload', {user: user, ficheirosAmais: [], filesStructure: p.filesStructure})
+        } else{
+            // logs.filesNotOk nao respeitam o sha256
+        }
     })
 })
 

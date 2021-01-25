@@ -42,14 +42,14 @@ function isLogged(req, res, next){
 }
 
 function isAdmin(req, res, next){
-    if(req.user.level >= 3)
+    if(req.isAuthenticated() && req.user.level >= 3)
         next();
     else
         res.redirect("/");
 }
 
 function isCreator(req, res, next){
-    if(req.user.level >= 2)
+    if(req.isAuthenticated() && req.user.level >= 2)
         next();
     else
         res.redirect("/");

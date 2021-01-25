@@ -1,0 +1,25 @@
+extends ../includes/layout
+block content
+    link(rel='stylesheet', href='/stylesheets/styleAdd.css')
+    div.container(style="width:800px; margin-top:150px; auto;")
+        div.row
+            div.col-md-12
+                h2.text-center(style="color:red;") Erro no envio
+        if(ficheirosAmais && ficheirosAmais.length > 0)
+            div.row(style="margin-top:30px;")
+                div.col-md-12
+                    p.text-center Os seguintes ficheiros nao estao referenciados no manifesto :
+                        each n in ficheirosAmais
+                            p.text-center(style="color:red;")=n
+        else if(filesStructure && filesStructure.length > 0)
+            div.row(style="margin-top:30px;")
+                div.col-md-12
+                    p.text-center Os seguintes ficheiros estao a mais no zip :
+                        each n in filesStructure
+                            p.text-center(style="color:red;")=n
+                    p.text-center (So deve ter manifesto, ficheiro de versao e data)
+        else
+            div.row(style="margin-top:30px;")
+                div.col-md-12
+                    p.text-center O ZIP nao segue a strutura
+                        a(href='/files/exemplo.zip') BagIt

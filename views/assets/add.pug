@@ -1,4 +1,42 @@
 extends ../includes/layout
 block content
-    script(src='/javascripts/pedidoScripts.js')
-    p coucou
+    link(rel='stylesheet', href='/stylesheets/styleAdd.css')
+    div.container(style="width:800px; margin-top:150px; auto;")
+        div.row
+            div.col-md-12
+                p.text-center
+                    b Os ficheiros tenhem de seguir a estrutura
+                        a(href='https://tools.ietf.org/id/draft-kunze-bagit-16.html' target='_blank')  Baglt
+                    b , faça
+                        a(href='/files/exemplo.zip')  aqui
+                    b  o download de um ZIP exemplo.
+                form#addAsset(action='/assets/add' method='POST' enctype='multipart/form-data' autocomplete='off')
+                    div.container(style="margin-top:20px; auto;")
+                        div.row(style="margin-top:50px; auto;")
+                            div.col-md-6
+                                input#title.form-control(type='text'  name='title' placeholder='Titulo do asset...' required)
+                            div.col-md-6
+                                input#type.form-control(type='text'  name='username' placeholder='Tipo do asset...' required)
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:45px; auto;")
+                            div.col-md-6.text-center
+                                label(for='data') Data de criaçao
+                                input#data.form-control(type='date' name='dataCriacao'  value="2020-01-01" min="1950-01-01" max="2022-01-01")
+                            div.col-md-6.text-center
+                                label(for='private') Privado
+                                input#private.form-control(type='checkbox' name='privado')
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:45px; auto;")
+                            div.col-md-12.text-center
+                                label(for='tags') Tags (separados por virgula)
+                                textarea#tags.form-control(placeholder='programmacao, c, teste, curso'  rows="3" name='tags')
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:45px; auto;")
+                            div.col-md-12.text-center
+                                input#file(type='file' name='myFileInput')
+
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:55px; auto;")
+                            div.col-md-4.text-center
+                            div.col-md-4.text-center
+                                input.form-control(type='submit' value='Enviar')
