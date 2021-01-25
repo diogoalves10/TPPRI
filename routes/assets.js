@@ -54,8 +54,8 @@ router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => 
             // meter meta na bdd
         }
     }).catch(p => {
-        console.log("coucou")
         files.deleteFile(__dirname + '/../' + req.file.path)
+        console.log(p)
         if(p.filesStructure && p.filesStructure.length > 0){
             res.status(400);
             res.render('assets/erroUpload', {user: user, ficheirosAmais: [], filesStructure: p.filesStructure})

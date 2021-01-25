@@ -2,8 +2,10 @@ const cloudinary = require('cloudinary').v2
 const fs = require('fs');
 const unzipper = require('unzipper')
 const sha256File = require('sha256-file');
+const glob = require('glob');
 const del = require('del');
 const dir = 'temp';
+const path = require('path')
 
 
 const {
@@ -50,7 +52,7 @@ function uploadAsset(acutalPath, folder, name){
 
 function gerarZip(path){
     return new Promise((successCallback, failureCallback) => {
-        let files = [], filesNotOk = [], filesInsideFolder = []
+        let files = [], filesNotOk = [], filesInsideFolder = [], filesInManifestButNot = []
         let pathDir = path+'dir'+'/'
         fs.mkdir(pathDir, (err) => {
             if (err)
@@ -71,53 +73,49 @@ function gerarZip(path){
                             failureCallback({files,filesNotOk, filesStructure :aaa})
                     })
 
-                    // FILES OK
+                    // FILES STRUCTURE OK
+
+
                     let pathDirData = pathDir+'data/';
-                    fs.readdir(pathDirData, function (err, filesuu) {
-                        if (err)
+
+
+                    getFiles(pathDirData, filesInsideFolder)
+
+                    fs.readFile(pathDir+'/manifest-sha256.txt', 'utf8' , (err, data) => {
+                        if (err|| !data){
                             failureCallback()
-                        filesuu.forEach(function (file) {
-                            filesInsideFolder.push(file)
-                        })
-                        filesInsideFolder = [...new Set(filesInsideFolder)];
+                        }
 
-
-                        fs.readFile(pathDir+'/manifest-sha256.txt', 'utf8' , (err, data) => {
-                            if (err|| !data){
-                                failureCallback()
-                            }
-
-                            var char = '\n';
-                            var i = j = 0;
+                        var char = '\n';
+                        var i = j = 0;
+                        (async () => {
+                            try {
+                                while ((j = data.indexOf(char, i)) !== -1) {
+                                    let line = data.substring(i, j)
+                                    i = j + 1;
+                                    await lineSha(line,files, filesNotOk,filesInManifestButNot, pathDir+'data/')
+                                }
+                                files = [...new Set(files)];
+                                filesNotOk = [...new Set(filesNotOk)];
+                            } catch (err) {            }
+                        })().then(() => {
+                            // delete folder
                             (async () => {
                                 try {
-                                    while ((j = data.indexOf(char, i)) !== -1) {
-                                        let line = data.substring(i, j)
-                                        i = j + 1;
-                                        await lineSha(line,files, filesNotOk, pathDir+'data/')
-                                    }
-                                    files = [...new Set(files)];
-                                    filesNotOk = [...new Set(filesNotOk)];
-                                } catch (err) {            }
-                            })().then(() => {
-                                // delete folder
-                                (async () => {
-                                    try {
-                                        await del(pathDir);
-                                    } catch (err) {
-                                        console.error(`Error while deleting ${pathDir}.`);
-                                    }
-                                })();
-                                if(filesNotOk.length !== 0){
-                                    failureCallback({files, filesNotOk, filesInsideFolder})
+                                    await del(pathDir);
+                                } catch (err) {
+                                    console.error(`Error while deleting ${pathDir}.`);
                                 }
-                                else
-                                    successCallback({files, filesNotOk, filesInsideFolder})
-                            }).catch(e => {
+                            })();
+                            if(filesNotOk.length !== 0){
                                 failureCallback({files, filesNotOk, filesInsideFolder})
-                            })
+                            }
+                            else
+                                successCallback({files, filesNotOk, filesInsideFolder})
+                        }).catch(e => {
+                            failureCallback({files, filesNotOk, filesInsideFolder})
                         })
-                    });
+                    })
                 });
             }, e => {
                 failureCallback()
@@ -134,21 +132,42 @@ async function deleteFile(path){
     }
 };
 
-async function lineSha(line, files, filesNotOk, pathDirectory){
+async function lineSha(line, files, filesNotOk,filesInManifestButNot, pathDirectory){
     return new Promise(function(resolve, reject) {
         let split = line.replace(' ', '&').split('&')
         let sha = split[0]
         let filePath = pathDirectory + split[1];
-        sha256File(filePath, function (error, sum) {
-            if (error || sum != sha) filesNotOk.push(split[1]);
-            else
-                files.push(split[1])
-            resolve()
-        })
+
+        fs.access(filePath, error => {
+            if (!error) {
+                sha256File(filePath, function (error, sum) {
+                    if (sum != sha) filesNotOk.push(split[1]);
+                    else
+                        files.push(split[1])
+                    resolve()
+                })
+
+
+            } else {
+                filesInManifestButNot.push(filePath)
+                console.log(filePath)
+                resolve()
+            }
+        });
+
     })
 }
 
-
+function getFiles(dir, files) {
+    fs.readdirSync(dir).forEach(file => {
+        let fullPath = path.join(dir, file);
+        if (fs.lstatSync(fullPath).isDirectory()) {
+            getFiles(fullPath, files);
+        } else {
+            files.push(fullPath.split("/data/").pop())
+        }
+    });
+}
 
 module.exports.gerarZip = gerarZip;
 module.exports.uploadPicture = uploadPicture;
