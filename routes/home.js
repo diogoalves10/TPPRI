@@ -24,7 +24,7 @@ router.get('/', verificaAutenticacao, function(req, res) {
         }
     })
 });
-
+// a
 function verificaAutenticacao(req, res, next){
     if(req.isAuthenticated())
         next();
