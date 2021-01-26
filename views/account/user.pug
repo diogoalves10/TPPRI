@@ -27,10 +27,11 @@ block content
                         div.image-cropper
                             img(src=`${userProfile.image.url}`)
         div(style="width:500px;;")
-            table.table.table-striped.table-hover
-                caption Assets
-                each n in assets
-                    tr.text-center.row
-                        td.col-md-6
-                            a(href="/assets/info/" + n.id) #{n.title}
-                        td.col-md-6 Avaliacoes #{n.stars.length}
+            if(assets.length>0)
+                table.table.table-striped.table-hover
+                    caption Assets
+                    each n in assets
+                        tr.text-center.row
+                            td.col-md-6
+                                a(href="/assets/info/" + n.id) #{n.title}
+                            td.col-md-6 Avaliacoes #{n.stars.length}

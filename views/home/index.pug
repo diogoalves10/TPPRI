@@ -8,8 +8,8 @@ block content
                 each n in news
                     tr.text-center.row
                         td.col-md-12
-                            a(href='') #{n.user.username}&nbsp;
+                            a(href='/users/info/'+n.user.username) #{n.user.username}&nbsp;
                             b meteu em ligna o conteudo&nbsp;
-                            a(href='') #{n.asset.title}
+                            a(href='/assets/info/'+n.asset.id) #{n.asset.title}
         else
             h5.text-center Nao existem noticias.

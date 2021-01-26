@@ -7,6 +7,8 @@ const Assets = require('../controllers/assets');
 router.get('/', verificaAutenticacao, function(req, res) {
     let newFull = []
     News.list().then(dados => {
+        if(dados.length == 0)
+            res.render('home/index', { title: 'Home', user: req.user, news:newFull });
         for(let dado of dados){
             Users.lookUp(dado.prop).exec().then(userNew =>{
                 Assets.lookUp(dado.asset).exec().then(assetNew =>{
