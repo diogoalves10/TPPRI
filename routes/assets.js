@@ -104,10 +104,10 @@ router.get('/info/:id',  auth.isLogged, (req, res) => {
 
                 for(let comment of u.comments){
                     Users.lookUp(comment.user).exec().then(a =>{
-                        commentsUser.push({user:a, comment:comment.comment});
+                        commentsUser.push({user:a, comment:comment.comment, date:comment.reg_time});
                         if(commentsUser.length == u.comments.length){
                             commentsUser.sort((a,b) => {
-                                return b-a
+                                return b.date-a.date
                             })
                             res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
                         }
