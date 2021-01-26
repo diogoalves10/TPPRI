@@ -107,7 +107,7 @@ router.get('/info/:id',  auth.isLogged, (req, res) => {
                         commentsUser.push({user:a, comment:comment.comment, date:comment.reg_time});
                         if(commentsUser.length == u.comments.length){
                             commentsUser.sort((a,b) => {
-                                return b.date-a.date
+                                return a.date-b.date
                             })
                             res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
                         }
