@@ -5,4 +5,4 @@ module.exports.insert = u => {
     u.save();
     return u;
 }
-module.exports.list = () => New.find()
+module.exports.list = () => New.find().limit(10)
