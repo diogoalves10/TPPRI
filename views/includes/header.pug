@@ -2,6 +2,9 @@ header.header
     nav.navbar.navbar-expand-lg.fixed-top.py-3.navbar-custom
         .container
             .navbar-brand.text-uppercase.font-weight-bold.text-white.title-navbar MINHOBOOK
+            form#searchAsset(action='/assets/search' method='GET' autocomplete='off')
+                input#search.form-control(style="width:200px; margin-left:30px; margin-right:30px" type='text'  name='tag' placeholder='Procurar...' required)
+                input(type='submit' style="position: absolute; left: -9999px")
             button.navbar-toggler.navbar-toggler-right(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
                 i.fa.fa-bars
             #navbarSupportedContent.collapse.navbar-collapse

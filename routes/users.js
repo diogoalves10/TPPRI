@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('../auth').passport;
 const Users = require('../controllers/users');
+const Assets = require('../controllers/assets');
 const bcrypt = require('bcrypt');
 const auth = require('../auth');
 const multer = require("multer")
@@ -30,7 +31,9 @@ router.get('/info/:username', auth.isLogged, (req, res) => {
             let myAccount = false
             if(req.user.id == user.id)
                 myAccount = true
-            res.render('account/user', {user:req.user, userProfile: user, myAccount: myAccount });
+            Assets.lookUpByUser(user.id).then(dados => {
+                res.render('account/user', {user:req.user, userProfile: user, myAccount: myAccount, assets: dados });
+            })
         }
         else
             res.redirect('/home')
@@ -107,7 +110,7 @@ router.post('/editDescription', auth.isLogged,  (req,res) => {
 router.post('/uploadPicture',upload.single('myFileInput'), auth.isLogged,  (req,res) => {
     let file = req.file;
     let user = req.user;
-    files.uploadPicture(__dirname + '/../' + file.path, 'users', req.user._id).then(p => {
+    files.uploadPicture(__dirname + '/../' + file.path, req.user._id).then(p => {
         user.image.date = new Date().toISOString().substr(0,16)
         user.image.originalName = file.originalname
         user.image.mimetype = file.mimetype;

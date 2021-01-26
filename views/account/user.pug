@@ -1,28 +1,36 @@
 extends ../includes/layout
 block content
     link(rel='stylesheet', href='/stylesheets/styleAccount.css')
-    div.container(style="width:800px; margin-top:270px; auto;")
-            div.form-group
-                div.row
-                    div.col-md-6
-                        div.container
-                            div.row
-                                div.col-md-8
-                                    p.h1 #{userProfile.username}
-                        div.container(style="margin-top:5px; auto;")
-                            div.row
-                                div.col-md-8
-                                    p.h3 #{userProfile.email}
-                        div.container(style="margin-top:5px; auto;")
-                            div.row
-                                div.col-md-8
-                                    p.h6 #{userProfile.description}
-                        div.container(style="margin-top:5px; auto;")
-                            div.row
-                                div.col-md-8
-                                    if(myAccount)
-                                        a.h6(href='/account') Editar
-                    div.col-md-6
-                        div.containerIMG.centerIMG
-                            div.image-cropper
-                                img(src=`${userProfile.image.url}`)
+    div.container(style="width:800px; margin-top:220px; auto;")
+        div.form-group
+            div.row
+                div.col-md-6
+                    div.container
+                        div.row
+                            div.col-md-8
+                                p.h1 #{userProfile.username}
+                    div.container(style="margin-top:5px; auto;")
+                        div.row
+                            div.col-md-8
+                                p.h3 #{userProfile.email}
+                    div.container(style="margin-top:5px; auto;")
+                        div.row
+                            div.col-md-8
+                                p.h6 #{userProfile.description}
+                    div.container(style="margin-top:5px; auto;")
+                        div.row
+                            div.col-md-8
+                                if(myAccount)
+                                    a.h6(href='/account') Editar
+                div.col-md-6
+                    div.containerIMG.centerIMG
+                        div.image-cropper
+                            img(src=`${userProfile.image.url}`)
+        div(style="width:500px;;")
+            table.table.table-striped.table-hover
+                caption Assets
+                each n in assets
+                    tr.text-center.row
+                        td.col-md-6
+                            a(href="/assets/info/" + n.id) #{n.title}
+                        td.col-md-6 Avaliacoes #{n.stars.length}

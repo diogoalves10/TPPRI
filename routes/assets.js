@@ -3,6 +3,9 @@ const router = express.Router();
 const auth = require('../auth');
 const files = require('../files');
 const Pedidos = require('../controllers/pedidos');
+const Users = require('../controllers/users');
+const News = require('../controllers/news');
+const Assets = require('../controllers/assets');
 const Types = require('../controllers/assetsTypes');
 const multer = require("multer")
 const upload = multer({dest: 'uploads/'})
@@ -49,9 +52,15 @@ router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => 
             res.status(400);
             res.render('assets/erroUpload', {user: user, ficheirosAmais: ficheirosAmais})
         } else {
-            console.log(logs)
-            // transferir ficheiro no cloud
-            // meter meta na bdd
+
+            Assets.insert(logs.files, req.file.path, user, req.body.type, req.body.privado, req.body.title, req.body.tags, req.body.descricao, req.body.dataCriacao)
+                .then(a => {
+                    News.insert({prop: user.id, asset: a.id})
+                    res.redirect('info/'+a.id)
+                })
+                .catch(a => {
+                    res.redirect('/')
+                })
         }
     }).catch(p => {
         files.deleteFile(__dirname + '/../' + req.file.path)
@@ -69,16 +78,82 @@ router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => 
     })
 })
 
-router.post('/remove', auth.isCreator, (req, res) => {
 
+
+router.get('/info/:id',  auth.isLogged, (req, res) => {
+    Assets.lookUp(req.params.id).then(u => {
+        if(!u)
+            res.redirect('/home')
+        Types.lookUp(u.type).then(type=>{
+            if(!type)
+                res.redirect('/home')
+            Users.lookUp(u.prop).then(prop => {
+                if(!prop)
+                    res.redirect('/home')
+                let ranked = false;
+                for (let rank of u.stars){
+                    if(rank.user.equals( req.user._id)){
+                        ranked=true;
+                    }
+                }
+
+                let commentsUser = []
+
+                if(u.comments.length == 0)
+                    res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
+
+                for(let comment of u.comments){
+                    Users.lookUp(comment.user).exec().then(a =>{
+                        commentsUser.push({user:a, comment:comment.comment});
+                        if(commentsUser.length == u.comments.length){
+                            commentsUser.sort((a,b) => {
+                                return b-a
+                            })
+                            res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
+                        }
+                    })
+                }
+            })
+        })
+
+    })
+})
+
+router.get('/search',  auth.isLogged, (req, res) => {
+    Assets.lookUpByTag(req.query.tag).then(u => {
+        res.render('assets/search', {user: req.user, assets:u})
+    })
 })
 
 router.post('/comment', auth.isLogged, (req, res) => {
-
+    Assets.lookUp(req.body.idAsset).then(u => {
+        if(!u)
+            res.redirect('/home')
+        u.comments.push({user:req.user.id, comment: req.body.comment, reg_time: new Date()})
+        Assets.edit(u).then(a => {
+            res.redirect('/assets/info/'+u.id)
+        })
+    })
 })
 
-router.post('/rank', auth.isLogged, (req, res) => {
 
+router.get('/rank', auth.isLogged, (req, res) => {
+    let rank = req.query.stars;
+    if(rank < 1 && rank > 5)
+        res.redirect('/home')
+    Assets.lookUp(req.query.assetId).then(u => {
+        for (let rank of u.stars){
+            if(rank.user.equals( req.user._id)){
+                console.log('deja noté')
+                res.redirect('/home')
+                return;
+            }
+        }
+        u.stars.push({user:req.user.id, stars: req.query.stars})
+        Assets.edit(u).then(a => {
+            res.redirect('/assets/info/'+u.id)
+        })
+    })
 })
 
 module.exports = router;

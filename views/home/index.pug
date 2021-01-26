@@ -1,3 +1,15 @@
 extends ../includes/layout
 
 block content
+    div.container(style="width:500px; margin-top:165px; auto;")
+        if(news.length > 0)
+            table.table
+                caption Noticias
+                each n in news
+                    tr.text-center.row
+                        td.col-md-12
+                            a(href='') #{n.user.username}&nbsp;
+                            b meteu em ligna o conteudo&nbsp;
+                            a(href='') #{n.asset.title}
+        else
+            h5.text-center Nao existem noticias.

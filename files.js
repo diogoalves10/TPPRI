@@ -18,11 +18,11 @@ cloudinary.config({
     api_secret: `${CLOUDINARY_PASSWORD}`
 });
 
-function uploadPicture(acutalPath, folder, name){
+function uploadPicture(acutalPath, name){
     return new Promise((successCallback, failureCallback) => {
         cloudinary.uploader.upload(
             acutalPath,
-            { folder :  folder, public_id : name, width:700, crop: "scale"},
+            { folder :  'users', public_id : name, width:700, crop: "scale"},
             function(err, image) {
                 if (err)
                     failureCallback("Échec");
@@ -34,14 +34,14 @@ function uploadPicture(acutalPath, folder, name){
     })
 }
 
-function uploadAsset(acutalPath, folder, name){
+function uploadAsset(acutalPath, name){
     return new Promise((successCallback, failureCallback) => {
         cloudinary.uploader.upload(
             acutalPath,
-            { folder :  folder, public_id : name, width:700, crop: "scale"},
+            { folder :  'zips', public_id : name,resource_type: "raw" },
             function(err, image) {
                 if (err)
-                    failureCallback("Échec");
+                    failureCallback(err);
                 const fs = require('fs')
                 fs.unlinkSync(acutalPath)
                 successCallback(image)

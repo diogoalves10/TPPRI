@@ -1,0 +1,102 @@
+extends ../includes/layout
+block content
+    script(src='javascripts/accountScripts.js')
+    link(rel='stylesheet', href='/stylesheets/styleAccount.css')
+    div.container(style="width:900px; margin-top:165px; auto;")
+            div.form-group
+                div.row
+                    div.col-md-6
+                        div.container
+                            div.row
+                                h1
+                                    b #{asset.title}
+                            div.row
+                                h3 #{type.title}
+                            div.row(style="margin-top:10px;")
+                                h6 Criado no #{prettyDate(asset.creation_time)}
+                            div.row(style="margin-top:10px;")
+                                h6 Metido online no #{prettyDate(asset.reg_time)}
+                            div.row(style="margin-top:10px;")
+                                p #{asset.descricao}
+                            div.row(style="margin-top:0px;")
+                                each tag in asset.tags
+                                    b
+                                        a(href='/assets/search?tag='+tag) ##{tag}&nbsp
+                            div.row(style="margin-top:10px;")
+                                h6 Avaliaçao :&nbsp
+                                    if(asset.stars.length > 0)
+                                        h6 #{med(asset.stars)} / 5 (#{asset.stars.length} avaliações)
+                                    else
+                                        h6 Nenhuma
+                            div.row(style="margin-top:10px;")
+                                if(!ranked)
+                                    h6
+                                        b Avaliar :&nbsp
+                                            a(href='/assets/rank?stars=1&assetId=' + asset.id) 1&nbsp
+                                            a(href='/assets/rank?stars=2&assetId=' + asset.id) 2&nbsp
+                                            a(href='/assets/rank?stars=3&assetId=' + asset.id) 3&nbsp
+                                            a(href='/assets/rank?stars=4&assetId=' + asset.id) 4&nbsp
+                                            a(href='/assets/rank?stars=5&assetId=' + asset.id) 5&nbsp
+                            if(asset.private)
+                                div.row
+                                    h6(style="color:brown") Privado
+                    div.col-md-6
+                        div.containerIMG.centerIMG
+                            div.image-cropper(style="margin-top:100px;")
+                                img(src=`${prop.image.url}`)
+                                h4.text-center(style="margin-top:20px;") Metido online por :
+                                    a(href='/users/info/'+prop.username)  #{prop.username}
+
+                div.row(style="margin-top:100px;")
+                    div.col-md-6
+                        div.container
+                            div.row
+                                h4
+                                    b FICHEIROS
+                            div.row
+                                ul
+                                    each file in asset.files
+                                        li=file
+                    div.col-md-6.text-center
+                        p.text-center(style="margin-top:65px;")
+                            h1
+                                a(href=asset.link download=asset.title+'.zip') DOWNLOAD
+                div.row(style="margin-top:100px;")
+                    div.col-md-12
+                        table.table.table-striped.table-hover
+                            caption Commentarios
+                            each n in comments
+                                tr.text-center.row
+                                    td.col-md-2.nopadding
+                                        img.image-cropper-admin(src=n.user.image.url)
+                                    td.col-md-2.text-center
+                                        a(href="/users/info/" + n.user.username) #{n.user.username}
+                                    td.col-md-8.text-center #{n.comment}
+                div.row(style="margin-top:50px;")
+                    div.col-md-12
+                        form#comment(action='/assets/comment' method='POST', autocomplete='off')
+                            div.row
+                                div.col-md-12
+                                    input(type='hidden' value=asset.id name='idAsset')
+                                    textarea#changeDescricaoInput.form-control(placeholder='Commente...'  rows="5" name='comment')
+                            div.row(style="margin-bottom:150px;")
+                                div.col-md-5
+                                div.col-md-2
+                                    input.form-control(type='submit' value='Commentar' style="margin-top:10px; auto;")
+
+    -function prettyDate(dateString) {
+    -var date = new Date(dateString);
+    -var d = date.getDate();
+    -var monthNames = [ 'Janeiro',  'Fevereiro',  'Março',  'Abril', 'Maio',   'Junho',  'Julho',  'Agosto',   'Setembro',    'Outubro',   'Novembro',  'Dezembro' ];
+    -var m = monthNames[date.getMonth()];
+    -var y = date.getFullYear();
+    -return d+' de '+m+' '+y;
+    -}
+
+    -function med(avaliacoes){
+    -var total = 0;
+    -for(var i = 0; i < avaliacoes.length; i++) {
+    -total += avaliacoes[i].stars;
+    -}
+    -return (total / avaliacoes.length).toFixed(1);
+    -}

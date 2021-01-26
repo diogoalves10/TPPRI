@@ -9,7 +9,7 @@ module.exports.insert = description => {
 
 module.exports.list = () => AssetType.find()
 module.exports.lookUp = id => AssetType.findById(id)
-module.exports.lookByName = title => AssetType.findOne({title: title.toLowerCase()})
+module.exports.lookByName = title => AssetType.findOne({title: title.toLowerCase()}).exec()
 
 /*
 module.exports.lookUpByInfos = info => User.findOne({$or:[{username: info},{email: info}]})
