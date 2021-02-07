@@ -25,20 +25,24 @@ router.get('/logout', (req, res) => {
 
 });
 
-router.get('/info/:username', auth.isLogged, (req, res) => {
+router.get('/info/:username', auth.isLogged, (req, res) =>
     Users.lookUpByInfos(req.params.username).then(user => {
-        if(user){
-            let myAccount = false
-            if(req.user.id == user.id)
-                myAccount = true
+        if(user)
             Assets.lookUpByUser(user.id).then(dados => {
-                res.render('account/user', {user:req.user, userProfile: user, myAccount: myAccount, assets: dados });
+                let assets = [];
+                dados.forEach(e=>{
+                    let total = 0;
+                    e.stars.forEach(star =>{
+                        total += star.stars
+                    })
+                    assets.push({id: e.id , title: e.title, nbstars : e.stars.length, med: (total/e.stars.length).toFixed(1)})
+                })
+                res.render('account/user', {user:req.user, userProfile: user, myAccount: req.user.id === user.id, assets: assets });
             })
-        }
         else
             res.redirect('/home')
     })
-});
+);
 
 router.post('/register', (req,res) => {
   let username = req.body.username;

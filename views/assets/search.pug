@@ -2,10 +2,10 @@ extends ../includes/layout
 block content
     script(src='javascripts/accountScripts.js')
     link(rel='stylesheet', href='/stylesheets/styleAccount.css')
-    div.container(style="width:500px; margin-top:165px; auto;")
+    div.container(style="width:700px; margin-top:165px; auto;")
         if(assets.length > 0)
             table.table.table-striped.table-hover
-                caption Assets
+                caption Resultados
                 each n in assets
                     tr.text-center.row
                         td.col-md-6

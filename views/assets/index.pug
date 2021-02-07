@@ -21,7 +21,8 @@ block content
                             div.row(style="margin-top:0px;")
                                 each tag in asset.tags
                                     b
-                                        a(href='/assets/search?tag='+tag) ##{tag}&nbsp
+                                        a(href='/assets/search?tag='+tag) ##{tag}
+                                        b &nbsp
                             div.row(style="margin-top:10px;")
                                 h6 Avaliaçao :&nbsp
                                     if(asset.stars.length > 0)
@@ -44,8 +45,8 @@ block content
                         div.containerIMG.centerIMG
                             div.image-cropper(style="margin-top:100px;")
                                 img(src=`${prop.image.url}`)
-                                h4.text-center(style="margin-top:20px;") Metido online por :
-                                    a(href='/users/info/'+prop.username)  #{prop.username}
+                                h4.text-center(style="margin-top:20px;") Metido online por :&nbsp
+                                    a(href='/users/info/'+prop.username) #{prop.username}
 
                 div.row(style="margin-top:100px;")
                     div.col-md-6

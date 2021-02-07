@@ -90,6 +90,48 @@ router.get('/info/:id',  auth.isLogged, (req, res) => {
             Users.lookUp(u.prop).then(prop => {
                 if(!prop)
                     res.redirect('/home')
+                if(u.prop==req.user.id)
+                    console.log("yes")
+                let ranked = false;
+                for (let rank of u.stars){
+                    if(rank.user.equals( req.user._id)){
+                        ranked=true;
+                    }
+                }
+
+                let commentsUser = []
+
+                if(u.comments.length == 0)
+                    res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
+
+                for(let comment of u.comments){
+                    Users.lookUp(comment.user).exec().then(a =>{
+                        commentsUser.push({user:a, comment:comment.comment, date:comment.reg_time});
+                        if(commentsUser.length == u.comments.length){
+                            commentsUser.sort((a,b) => {
+                                return a.date-b.date
+                            })
+                            res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
+                        }
+                    })
+                }
+            })
+        })
+
+    })
+})
+
+router.get('/edit/:id',  auth.isLogged, (req, res) => {
+    Assets.lookUp(req.params.id).then(u => {
+        if(!u)
+            res.redirect('/home')
+        Types.lookUp(u.type).then(type=>{
+            if(!type)
+                res.redirect('/home')
+            Users.lookUp(u.prop).then(prop => {
+                if(!prop)
+                    res.redirect('/home')
+
                 let ranked = false;
                 for (let rank of u.stars){
                     if(rank.user.equals( req.user._id)){

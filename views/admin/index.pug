@@ -18,15 +18,13 @@ block content
                         img.image-cropper-admin(src=n.image.url)
                     td.col-md-2
                         a(href="/users/info/" + n.username) #{n.username}
-                    td.col-md-2
+                    td.col-md-4
                         if(n.level === 1)
                             div Consumidor
                         else if(n.level === 2)
                             div Produtor
                         else if(n.level === 3)
                             div Administrador
-                    td.col-md-2
-                        // a(href="/admin/delete/user/" + n.username style="color:red;") Remover
                     td.col-md-2
                         a(href="/admin/user/" + n.username style="color:brown;") Por admin
                     td.col-md-2

@@ -15,7 +15,7 @@ router.get('/', verificaAutenticacao, function(req, res) {
                     newFull.push({user:userNew, asset:assetNew});
                     if(dados.length === newFull.length){
                         newFull.sort((a,b) => {
-                            return b.reg_time-a.reg_time
+                            return a.reg_time-b.reg_time
                         })
                         res.render('home/index', { title: 'Home', user: req.user, news:newFull });
                     }
