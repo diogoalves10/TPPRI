@@ -186,7 +186,8 @@ function formatDate(date) {
 
 
 router.get('/search',  auth.isLogged, (req, res) => {
-    Assets.lookUpByTag(req.query.tag).then(u => {
+    var tags = req.query.tag.split(' ')
+    Assets.lookUpByTags(tags).then(u => {
         res.render('assets/search', {user: req.user, assets:u})
     })
 })
