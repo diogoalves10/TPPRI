@@ -12,7 +12,7 @@ passport.use(new LocalStrategy(
         Users.lookUpByInfos(username)
             .then(user => {
                 if (!user)
-                    return done(null, false);
+                    return done(null, false, {message: 'Bad username'});
                 bcrypt.compare(password, user.hash, function(err, res) {
                     if (res === false) {
                         return done(null, false, {message: 'Bad password'});

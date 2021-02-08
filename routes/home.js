@@ -9,17 +9,32 @@ router.get('/', verificaAutenticacao, function(req, res) {
     News.list().then(dados => {
         if(dados.length == 0)
             res.render('home/index', { title: 'Home', user: req.user, news:newFull });
+        var o = 0;
         for(let dado of dados){
             Users.lookUp(dado.prop).exec().then(userNew =>{
-                Assets.lookUp(dado.asset).exec().then(assetNew =>{
-                    newFull.push({user:userNew, asset:assetNew});
-                    if(dados.length === newFull.length){
+                if(dado.asset)
+                    Assets.lookUp(dado.asset).exec().then(assetNew =>{
+                        if(!assetNew.private){
+                            newFull.push({user:userNew, asset:assetNew, date:dado.reg_time});
+                        }else
+                            o++
+
+                        if(dados.length === newFull.length +o){
+                            newFull.sort((a,b) => {
+                                return b.date-a.date
+                            })
+                            res.render('home/index', { title: 'Home', user: req.user, news:newFull });
+                        }
+                    })
+                else {
+                    newFull.push({user:userNew, date:dado.reg_time, produtor:dado.prod});
+                    if(dados.length === newFull.length+o){
                         newFull.sort((a,b) => {
-                            return a.reg_time-b.reg_time
+                            return b.date-a.date
                         })
                         res.render('home/index', { title: 'Home', user: req.user, news:newFull });
                     }
-                })
+                }
             })
         }
     })

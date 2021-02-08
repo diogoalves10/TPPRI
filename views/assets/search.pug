@@ -10,7 +10,10 @@ block content
                     tr.text-center.row
                         td.col-md-6
                             a(href="/assets/info/" + n.id) #{n.title}
-                        td.col-md-6 #{med(n.stars)}/5 (#{n.stars.length})
+                        if(n.stars.length > 0)
+                            td.col-md-6 #{med(n.stars)}/5 (#{n.stars.length})
+                        else
+                            td.col-md-6 Nenhuma avaliaçao
         else
             h5.text-center Nao existem assets com esse tag.
 

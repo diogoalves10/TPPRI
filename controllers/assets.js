@@ -39,7 +39,10 @@ module.exports.list = () => Asset.find({_id: id})
 module.exports.lookUp = id =>  Asset.findById(id)
 module.exports.lookUpByUser = id_uer =>  Asset.find({prop: id_uer})
 module.exports.lookUpByTag = tag => Asset.find({ tags: { "$in" : tag} })
-module.exports.edit = a => Asset.findByIdAndUpdate(a._id, a, {new: true}).exec()
+module.exports.edit = a => Asset.findByIdAndUpdate(a._id, a, {new: true})
+module.exports.deleteUser = id => {
+    Asset.deleteMany({prop:id}).exec()
+}
 
 /*
 module.exports.lookUpByInfos = info => User.findOne({$or:[{username: info},{email: info}]})

@@ -135,7 +135,7 @@ async function deleteFile(path){
 
 async function lineSha(line, files, filesNotOk,filesInManifestButNot, pathDirectory){
     return new Promise(function(resolve, reject) {
-        let split = line.replace(' ', '&').split('&')
+        let split = line.replace('  ', '&').replace(' ', '&').split('&')
         let sha = split[0]
         let filePath = pathDirectory + split[1];
 

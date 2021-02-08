@@ -5,12 +5,13 @@ const Users = require('../controllers/users');
 const Assets = require('../controllers/assets');
 const bcrypt = require('bcrypt');
 const auth = require('../auth');
+const News = require('../controllers/news');
 const multer = require("multer")
 const upload = multer({dest: 'uploads/'})
 const fs = require('fs');
 const files = require('../files')
 
-router.post('/login', passport.authenticate('local', {session:true, successRedirect: '/home', failureRedirect: '/' }));
+router.post('/login', passport.authenticate('local', {session:true, successRedirect: '/home', failureRedirect: '/' , failureFlash : true}));
 router.get('/logout', (req, res) => {
     req.logout();
     res.status(200).clearCookie('connect.sid', {
@@ -31,11 +32,13 @@ router.get('/info/:username', auth.isLogged, (req, res) =>
             Assets.lookUpByUser(user.id).then(dados => {
                 let assets = [];
                 dados.forEach(e=>{
-                    let total = 0;
-                    e.stars.forEach(star =>{
-                        total += star.stars
-                    })
-                    assets.push({id: e.id , title: e.title, nbstars : e.stars.length, med: (total/e.stars.length).toFixed(1)})
+                    if(!e.private || e.prop == req.user.id || req.user.level == 3){
+                        let total = 0;
+                        e.stars.forEach(star =>{
+                            total += star.stars
+                        })
+                        assets.push({id: e.id , title: e.title, nbstars : e.stars.length, med: (total/e.stars.length).toFixed(1), private:e.private})
+                    }
                 })
                 res.render('account/user', {user:req.user, userProfile: user, myAccount: req.user.id === user.id, assets: assets });
             })
@@ -50,6 +53,7 @@ router.post('/register', (req,res) => {
   let password = req.body.password;
     bcrypt.hash(password, 10, function(err, hash) {
         let user = Users.insert({username: username, email: email, level: 1, hash: hash})
+        News.insert({prop:user.id})
         req.login(user, function(err) {
             return res.redirect('/home');
         });

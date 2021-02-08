@@ -1,3 +1,4 @@
+
 const Pedido = require('../models/pedido')
 
 module.exports.insert = o => {
@@ -14,6 +15,9 @@ module.exports.insert = o => {
             return u;
         }
     })
+}
+module.exports.deleteUser = id => {
+    Pedido.deleteMany({prop:id}).exec()
 }
 module.exports.list = () => Pedido.find()
 module.exports.lookUp = id => Pedido.findById(id)

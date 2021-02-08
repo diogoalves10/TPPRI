@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt');
 const auth = require('../auth');
 const multer = require("multer")
 const upload = multer({dest: 'uploads/'})
+const News = require('../controllers/news');
+const Assets = require('../controllers/assets');
 const fs = require('fs');
 const files = require('../files')
 
@@ -19,12 +21,18 @@ router.get('/', auth.isAdmin, (req, res) => {
     })
 });
 
+// TODO
 router.get('/delete/user/:id', auth.isAdmin, (req, res) => {
+    /*
     Users.lookUpByInfos(req.params.id).then(user => {
-        if(user&& req.user.id !== user.id)
+        if(user&& req.user.id !== user.id){
             Users.delete(user.id)
+            News.deleteUser(user.id)
+            Assets.deleteUser(user.id)
+            Pedidos.deleteUser(user.id)
+        }
         res.redirect('/admin')
-    })
+    })*/
 });
 
 router.get('/delete/pedido/:id', auth.isAdmin, (req, res) => {
@@ -37,6 +45,7 @@ router.get('/aceitar/pedido/:id', auth.isAdmin, (req, res) => {
     Users.lookUp(req.params.id).then(user => {
         user.level = 2;
         Users.edit(user)
+        News.insert({prop:user.id, prod:true})
         res.redirect('/admin')
     })
 });

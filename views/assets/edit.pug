@@ -1,0 +1,37 @@
+extends ../includes/layout
+block content
+    link(rel='stylesheet', href='/stylesheets/styleAdd.css')
+    div.container(style="width:800px; margin-top:125px; auto;")
+        div.row
+            div.col-md-12
+                p.text-center
+                form#addAsset(action='/assets/edit/'+asset.id method='POST' autocomplete='off')
+                    div.container(style="margin-top:20px; auto;")
+                        div.row(style="margin-top:30px; auto;")
+                            div.col-md-6
+                                input#title.form-control(type='text'  name='title' value=asset.title required)
+                            div.col-md-6
+                                input#type.form-control(type='text'  name='type' value = type.title required)
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:30px; auto;")
+                            div.col-md-6.text-center
+                                label(for='data') Data de criaçao
+                                input#data.form-control(type='date' name='dataCriacao'  value=creationdate min="1950-01-01" max="2022-01-01")
+                            div.col-md-6.text-center
+                                label(for='private') Privado
+                                input#private.form-control(type='checkbox' name='privado' checked=(asset.private ? "checked" : undefined))
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:30px; auto;")
+                            div.col-md-12.text-center
+                                label(for='descricao') Descriçao
+                                textarea#descricao.form-control(rows="3" name='descricao') #{asset.descricao}
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:30px; auto;")
+                            div.col-md-12.text-center
+                                label(for='tags') Tags (separados por virgula)
+                                textarea#tags.form-control( rows="3" name='tags') #{tags}
+                    div.container(style="margin-top:5px; auto;")
+                        div.row(style="margin-top:40px; auto;")
+                            div.col-md-4.text-center
+                            div.col-md-4.text-center
+                                input.form-control(type='submit' value='Memorisar')

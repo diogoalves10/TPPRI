@@ -34,4 +34,12 @@ block content
                         tr.text-center.row
                             td.col-md-6
                                 a(href="/assets/info/" + n.id) #{n.title}
-                            td.col-md-6 #{n.med}/5 (#{n.nbstars})
+                            if(n.private == true)
+                                td.col-md-2
+                                    b(style="color:brown;") Privado
+                            else
+                                td.col-md-2
+                            if(n.nbstars == 0)
+                                td.col-md-4 Nenhuma avaliacao
+                            else
+                                td.col-md-4 #{n.med}/5 (#{n.nbstars})

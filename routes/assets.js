@@ -9,6 +9,7 @@ const Assets = require('../controllers/assets');
 const Types = require('../controllers/assetsTypes');
 const multer = require("multer")
 const upload = multer({dest: 'uploads/'})
+const AssetTypes = require('../controllers/assetsTypes')
 
 router.get('/', auth.isLogged,(req, res) => {
 
@@ -78,10 +79,10 @@ router.post('/add', upload.single('myFileInput'), auth.isCreator, (req, res) => 
     })
 })
 
-
-
 router.get('/info/:id',  auth.isLogged, (req, res) => {
     Assets.lookUp(req.params.id).then(u => {
+        if(u.private && u.prop != req.user.id && req.user.level < 3)
+            res.redirect('/home')
         if(!u)
             res.redirect('/home')
         Types.lookUp(u.type).then(type=>{
@@ -90,8 +91,6 @@ router.get('/info/:id',  auth.isLogged, (req, res) => {
             Users.lookUp(u.prop).then(prop => {
                 if(!prop)
                     res.redirect('/home')
-                if(u.prop==req.user.id)
-                    console.log("yes")
                 let ranked = false;
                 for (let rank of u.stars){
                     if(rank.user.equals( req.user._id)){
@@ -100,9 +99,8 @@ router.get('/info/:id',  auth.isLogged, (req, res) => {
                 }
 
                 let commentsUser = []
-
                 if(u.comments.length == 0)
-                    res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
+                    res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser, myAsset: u.prop==req.user.id || req.user.level == 3})
 
                 for(let comment of u.comments){
                     Users.lookUp(comment.user).exec().then(a =>{
@@ -111,13 +109,45 @@ router.get('/info/:id',  auth.isLogged, (req, res) => {
                             commentsUser.sort((a,b) => {
                                 return a.date-b.date
                             })
-                            res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
+                            res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser,  myAsset: u.prop==req.user.id || req.user.level == 3})
                         }
                     })
                 }
             })
         })
 
+    })
+})
+
+router.post('/edit/:id',  auth.isLogged, (req, res) => {
+    Assets.lookUp(req.params.id).then(u => {
+        if(!u)
+            res.redirect('/home')
+        Types.lookUp(u.type).then(type=> {
+            if (!type)
+                res.redirect('/home')
+            if (u.prop != req.user.id&& req.user.level < 3)
+                res.redirect('/home')
+            u.title = req.body.title
+            u.creation_time = req.body.dataCriacao
+            u.descricao = req.body.descricao
+            u.private = req.body.privado === 'on'
+            if (req.body.tags.length > 0)
+                u.tags = req.body.tags.replace(/\s/g, '').split(',')
+            else
+                u.tags = []
+
+            AssetTypes.lookByName(req.body.type).then(typeDB => {
+                if (!typeDB)
+                    u.type = AssetTypes.insert(req.body.type).id;
+                else
+                    u.type = typeDB.id
+
+                Assets.edit(u).then(() => {
+                    res.redirect('/assets/info/' + req.params.id)
+                })
+            })
+        })
     })
 })
 
@@ -128,38 +158,32 @@ router.get('/edit/:id',  auth.isLogged, (req, res) => {
         Types.lookUp(u.type).then(type=>{
             if(!type)
                 res.redirect('/home')
-            Users.lookUp(u.prop).then(prop => {
-                if(!prop)
-                    res.redirect('/home')
-
-                let ranked = false;
-                for (let rank of u.stars){
-                    if(rank.user.equals( req.user._id)){
-                        ranked=true;
-                    }
-                }
-
-                let commentsUser = []
-
-                if(u.comments.length == 0)
-                    res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
-
-                for(let comment of u.comments){
-                    Users.lookUp(comment.user).exec().then(a =>{
-                        commentsUser.push({user:a, comment:comment.comment, date:comment.reg_time});
-                        if(commentsUser.length == u.comments.length){
-                            commentsUser.sort((a,b) => {
-                                return a.date-b.date
-                            })
-                            res.render('assets/index', {user: req.user, asset:u, prop:prop, type:type, ranked: ranked, comments:commentsUser})
-                        }
-                    })
-                }
+            if(u.prop!=req.user.id && req.user.level < 3)
+                res.redirect('/home')
+            let tags = '';
+            u.tags.forEach(t => {
+                tags += t+',';
             })
+            res.render('assets/edit', {user: req.user, asset:u, type:type, tags: tags.slice(0,-1), creationdate: formatDate(u.creation_time)})
         })
 
     })
 })
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 
 router.get('/search',  auth.isLogged, (req, res) => {
     Assets.lookUpByTag(req.query.tag).then(u => {

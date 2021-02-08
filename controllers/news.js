@@ -1,3 +1,4 @@
+
 const New = require('../models/new')
 
 module.exports.insert = u => {
@@ -5,4 +6,8 @@ module.exports.insert = u => {
     u.save();
     return u;
 }
-module.exports.list = () => New.find().limit(10)
+module.exports.deleteUser = id => {
+    New.deleteMany({id:id}).exec()
+}
+
+module.exports.list = () => New.find().sort({reg_time: -1}).limit(10)
